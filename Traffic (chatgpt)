@@ -1,0 +1,31 @@
+import requests
+
+# Replace 'YOUR_API_KEY' with your actual Google Maps API key
+api_key = 'YOUR_API_KEY'
+
+# Replace 'YOUR_LOCATION' with the location or coordinates you want to get traffic information for
+location = 'YOUR_LOCATION'
+
+# Define the API endpoint for the Google Maps Directions API
+url = f'https://maps.googleapis.com/maps/api/directions/json?origin={location}&destination={location}&key={api_key}'
+
+# Send a GET request to the API
+response = requests.get(url)
+
+# Check if the request was successful (status code 200)
+if response.status_code == 200:
+    data = response.json()
+
+    # Extract and print the traffic information
+    if 'routes' in data and len(data['routes']) > 0:
+        traffic = data['routes'][0].get('legs', [{}])[0].get('duration_in_traffic', {})
+
+        if 'text' in traffic:
+            print(f'Traffic Information for {location}: {traffic["text"]}')
+        else:
+            print('No traffic information available for this location.')
+    else:
+        print('No routes found for this location.')
+else:
+    print('Failed to retrieve traffic information. Please check your API key and location.')
+
