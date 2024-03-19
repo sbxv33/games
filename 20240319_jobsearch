@@ -1,0 +1,27 @@
+import requests
+
+# Replace 'YOUR_API_KEY' with your actual Indeed API key
+api_key = 'YOUR_API_KEY'
+
+# Replace 'SEARCH_QUERY' with the job title, company, or keyword you want to search for
+search_query = 'SEARCH_QUERY'
+
+# Define the API endpoint for the Indeed Job Search API
+url = f'http://api.indeed.com/ads/apisearch?publisher={api_key}&q={search_query}&format=json'
+
+# Send a GET request to the API
+response = requests.get(url)
+
+# Check if the request was successful (status code 200)
+if response.status_code == 200:
+    data = response.json()
+
+    # Extract and display job listings
+    for job in data['results']:
+        print(f"Job Title: {job['jobtitle']}")
+        print(f"Company: {job['company']}")
+        print(f"Location: {job['formattedLocation']}")
+        print(f"URL: {job['url']}")
+        print()
+else:
+    print('Failed to retrieve job listings. Please check your API key and search query.')
