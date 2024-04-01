@@ -1,0 +1,27 @@
+import datetime
+
+def get_countdown(target_date):
+    # Get today's date
+    today = datetime.date.today()
+
+    # Calculate the difference between today and the target date
+    countdown = target_date - today
+
+    return countdown.days
+
+def main():
+    # Get the target date from the user
+    year = int(input("Enter the year (YYYY): "))
+    month = int(input("Enter the month (MM): "))
+    day = int(input("Enter the day (DD): "))
+
+    target_date = datetime.date(year, month, day)
+
+    # Calculate the countdown
+    countdown = get_countdown(target_date)
+
+    # Print the countdown
+    print(f"Days until {target_date}: {countdown}")
+
+if __name__ == "__main__":
+    main()
