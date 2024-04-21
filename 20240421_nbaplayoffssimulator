@@ -1,0 +1,50 @@
+import random
+
+def simulate_playoff_series(team1_name, team1_win_percentage, team2_name, team2_win_percentage):
+    # Simulate the outcome of a playoff series between two teams
+    team1_wins_needed = 4  # NBA playoff series are best of 7, so first team to 4 wins
+    team2_wins_needed = 4
+
+    while True:
+        if random.random() < team1_win_percentage:
+            team1_wins_needed -= 1
+            if team1_wins_needed == 0:
+                return team1_name
+        else:
+            team2_wins_needed -= 1
+            if team2_wins_needed == 0:
+                return team2_name
+
+def simulate_playoffs(playoff_teams):
+    # Simulate the NBA playoffs
+    round_num = 1
+    round_teams = playoff_teams
+    while len(round_teams) > 1:
+        print(f"Round {round_num} matchups:")
+        next_round_teams = []
+        for i in range(0, len(round_teams), 2):
+            team1_name, team1_win_percentage = round_teams[i]
+            team2_name, team2_win_percentage = round_teams[i + 1]
+            winner = simulate_playoff_series(team1_name, team1_win_percentage, team2_name, team2_win_percentage)
+            print(f"{team1_name} vs {team2_name}: {winner} wins")
+            next_round_teams.append((winner, 0.5))  # Simplified, assume all teams have equal win percentage in next round
+        round_teams = next_round_teams
+        round_num += 1
+
+    print(f"\nThe NBA champion is: {round_teams[0][0]}")
+
+def main():
+    # Define the playoff teams and their win percentages
+    playoff_teams = [
+        ("Team A", 0.65),
+        ("Team B", 0.60),
+        ("Team C", 0.70),
+        ("Team D", 0.55),
+        # Add more teams as needed
+    ]
+
+    # Simulate the NBA playoffs
+    simulate_playoffs(playoff_teams)
+
+if __name__ == "__main__":
+    main()
