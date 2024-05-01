@@ -1,0 +1,22 @@
+from nba_api.stats.endpoints import scoreboardv2
+
+def get_live_scores():
+    # Create a scoreboard endpoint object
+    scoreboard = scoreboardv2.ScoreboardV2()
+
+    # Get the data from the endpoint
+    data = scoreboard.get_data_frames()[0]
+
+    # Filter data for playoff games only
+    playoff_games = data[data['GAME_STATUS_TEXT'] == 'Final']
+
+    # Print live playoff scores
+    if len(playoff_games) > 0:
+        print("Live Playoff Scores:")
+        for index, game in playoff_games.iterrows():
+            print(f"{game['GAMECODE']}: {game['GAME_STATUS_TEXT']} - {game['HOME_TEAM_NAME']} {game['HOME_TEAM_SCORE']} - {game['VISITOR_TEAM_NAME']} {game['VISITOR_TEAM_SCORE']}")
+    else:
+        print("No live playoff games at the moment.")
+
+if __name__ == "__main__":
+    get_live_scores()
