@@ -1,0 +1,24 @@
+from googletrans import Translator
+
+def translate_text(text, src_language, dest_language):
+    # Initialize the translator
+    translator = Translator()
+
+    # Perform the translation
+    translation = translator.translate(text, src=src_language, dest=dest_language)
+
+    # Return the translated text
+    return translation.text
+
+def main():
+    # Get the text to translate from the user
+    text_to_translate = input("Enter the text to translate from English to Korean: ")
+
+    # Translate the text from English to Korean
+    translated_text = translate_text(text_to_translate, 'en', 'ko')
+
+    # Print the translated text
+    print(f"Translated text: {translated_text}")
+
+if __name__ == "__main__":
+    main()
