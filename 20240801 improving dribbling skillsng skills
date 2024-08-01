@@ -1,0 +1,44 @@
+import csv
+from datetime import datetime
+
+def log_practice_session(date, duration, notes):
+    """Log a new dribbling practice session."""
+    with open('dribbling_practice_log.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([date, duration, notes])
+    print("Practice session logged!")
+
+def view_practice_log():
+    """View all logged practice sessions."""
+    try:
+        with open('dribbling_practice_log.csv', 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                print(f"Date: {row[0]}, Duration: {row[1]} minutes, Notes: {row[2]}")
+    except FileNotFoundError:
+        print("No practice log found. Start by logging a session.")
+
+def main():
+    while True:
+        print("\nBasketball Dribbling Practice Log")
+        print("1. Log a practice session")
+        print("2. View practice log")
+        print("3. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            date = input("Enter the date (YYYY-MM-DD): ")
+            duration = input("Enter the duration in minutes: ")
+            notes = input("Enter any notes about the practice session: ")
+            log_practice_session(date, duration, notes)
+        elif choice == '2':
+            view_practice_log()
+        elif choice == '3':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please select again.")
+
+if __name__ == "__main__":
+    main()
