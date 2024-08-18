@@ -1,0 +1,36 @@
+import time
+
+def stretch_session(exercises, duration):
+    """
+    Guide the user through a stretching session.
+    
+    :param exercises: List of stretch names
+    :param duration: Duration of each stretch in seconds
+    """
+    for exercise in exercises:
+        print(f"Start stretching: {exercise}")
+        for remaining in range(duration, 0, -1):
+            mins, secs = divmod(remaining, 60)
+            time_format = '{:02d}:{:02d}'.format(mins, secs)
+            print(f"Time left: {time_format}", end='\r')
+            time.sleep(1)
+        print(f"\nDone stretching: {exercise}")
+        print("Rest for 10 seconds")
+        time.sleep(10)
+    
+    print("Stretching session complete. Great job!")
+
+# Define your stretching exercises and session duration
+stretching_exercises = [
+    "Hamstring Stretch",
+    "Quadriceps Stretch",
+    "Calf Stretch",
+    "Shoulder Stretch",
+    "Triceps Stretch"
+]
+
+# Duration of each stretch in seconds
+stretch_duration = 30
+
+# Start the stretching session
+stretch_session(stretching_exercises, stretch_duration)
