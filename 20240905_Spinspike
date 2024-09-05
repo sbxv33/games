@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+g = 9.81  # acceleration due to gravity (m/s^2)
+v0 = 20.0  # initial velocity (m/s)
+angle = 45.0  # launch angle (degrees)
+initial_height = 2.0  # initial height of the ball (meters)
+
+# Convert angle to radians
+angle_rad = np.radians(angle)
+
+# Time of flight calculation
+# Using the formula: t_flight = (v0 * sin(angle) + sqrt((v0 * sin(angle))^2 + 2 * g * initial_height)) / g
+t_flight = (v0 * np.sin(angle_rad) + np.sqrt((v0 * np.sin(angle_rad))**2 + 2 * g * initial_height)) / g
+
+# Time values
+t = np.linspace(0, t_flight, num=500)
+
+# Equations of motion
+x = v0 * np.cos(angle_rad) * t
+y = initial_height + v0 * np.sin(angle_rad) * t - 0.5 * g * t**2
+
+# Plotting the trajectory
+plt.figure(figsize=(10, 5))
+plt.plot(x, y, label='Spike Trajectory')
+plt.xlabel('Horizontal Distance (meters)')
+plt.ylabel('Vertical Distance (meters)')
+plt.title('Volleyball Spike Trajectory')
+plt.grid(True)
+plt.legend()
+plt.show()
