@@ -1,0 +1,46 @@
+import random
+
+# Hero data with pick probabilities
+heroes = {
+    "Invoker": 0.15,
+    "Pudge": 0.10,
+    "Anti-Mage": 0.08,
+    "Drow Ranger": 0.07,
+    "Axe": 0.06,
+    "Crystal Maiden": 0.06,
+    "Phantom Assassin": 0.05,
+    "Sniper": 0.05,
+    "Wraith King": 0.04,
+    "Lina": 0.04,
+    # Add more heroes and their pick probabilities
+}
+
+# Function to predict draft picks
+def predict_draft_picks(heroes, num_picks=5):
+    hero_names = list(heroes.keys())
+    probabilities = list(heroes.values())
+    
+    # Predict picks based on weighted probabilities
+    picks = random.choices(hero_names, weights=probabilities, k=num_picks)
+    
+    return picks
+
+# Function to simulate the draft
+def simulate_draft(heroes, num_picks_per_team=5):
+    team1_picks = predict_draft_picks(heroes, num_picks_per_team)
+    team2_picks = predict_draft_picks(heroes, num_picks_per_team)
+    
+    return team1_picks, team2_picks
+
+# Main function to run the draft simulation
+if __name__ == "__main__":
+    num_picks_per_team = 5  # Number of picks per team
+    team1_picks, team2_picks = simulate_draft(heroes, num_picks_per_team)
+    
+    print("Team 1 Picks:")
+    for hero in team1_picks:
+        print(f"- {hero}")
+    
+    print("\nTeam 2 Picks:")
+    for hero in team2_picks:
+        print(f"- {hero}")
