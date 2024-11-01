@@ -1,0 +1,27 @@
+from datetime import datetime
+import pytz
+
+def convert_timezone(from_tz, to_tz, time_str, fmt='%Y-%m-%d %H:%M'):
+    # Create timezone objects
+    from_timezone = pytz.timezone(from_tz)
+    to_timezone = pytz.timezone(to_tz)
+    
+    # Parse the input time string
+    naive_time = datetime.strptime(time_str, fmt)
+    
+    # Localize the naive time to the original timezone
+    local_time = from_timezone.localize(naive_time)
+    
+    # Convert to the target timezone
+    target_time = local_time.astimezone(to_timezone)
+    
+    return target_time.strftime(fmt)
+
+# Example usage
+if __name__ == "__main__":
+    from_timezone = 'America/New_York'
+    to_timezone = 'Europe/London'
+    time_str = '2024-11-01 15:00'  # Input time in the from_timezone
+
+    converted_time = convert_timezone(from_timezone, to_timezone, time_str)
+    print(f'Time in {to_timezone}: {converted_time}')
