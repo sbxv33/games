@@ -1,0 +1,40 @@
+import requests
+from datetime import datetime
+
+# Your Calendarific API key (get it from https://calendarific.com/)
+API_KEY = 'your_api_key_here'
+
+# Get today's date
+today = datetime.today().strftime('%Y-%m-%d')
+
+# Base URL for Calendarific API
+url = 'https://calendarific.com/api/v2/holidays'
+
+# List of countries (use 2-letter country codes, you can add more countries to this list)
+countries = ['US', 'GB', 'IN', 'DE', 'FR', 'JP', 'BR', 'CN', 'AU', 'CA']
+
+# Fetch holidays for today from each country
+for country in countries:
+    params = {
+        'api_key': API_KEY,
+        'country': country,
+        'year': datetime.today().year,
+        'date': today
+    }
+    
+    response = requests.get(url, params=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        holidays = data.get('response', {}).get('holidays', [])
+        
+        if holidays:
+            print(f"Holidays today in {country}:")
+            for holiday in holidays:
+                name = holiday.get('name', 'No name')
+                date = holiday.get('date', {}).get('iso', 'No date')
+                print(f"- {name} on {date}")
+        else:
+            print(f"No holidays today in {country}")
+    else:
+        print(f"Failed to retrieve data for {country}")
