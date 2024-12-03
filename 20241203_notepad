@@ -1,0 +1,19 @@
+import pyautogui
+import subprocess
+import time
+
+def open_notepad_and_write(text):
+    # Step 1: Open Notepad
+    subprocess.Popen(['notepad.exe'])
+    
+    # Step 2: Wait for Notepad to open
+    time.sleep(1)  # Wait for 1 second (adjust if necessary)
+    
+    # Step 3: Type the text into Notepad
+    pyautogui.write(text, interval=0.1)  # Write text with a slight delay between each key press
+
+    # Optionally, add more functionality (e.g., save the file or close the app)
+
+# Example usage
+note_content = "This is a note created by Python using pyautogui!"
+open_notepad_and_write(note_content)
