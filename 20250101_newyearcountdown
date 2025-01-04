@@ -1,0 +1,41 @@
+import pytz
+from datetime import datetime, timedelta
+
+def countdown_to_new_year():
+    # Define the new year's eve datetime in UTC (GMT)
+    new_year = datetime(2025, 1, 1, 0, 0, 0, 0)
+    
+    # Time zones to consider, for all GMT offsets from -12 to +14
+    gmt_offsets = range(-12, 15)
+    
+    # Get the current UTC time
+    current_utc_time = datetime.now(pytz.utc)
+    
+    print("New Year Countdown for All GMT Time Zones:")
+    print("=" * 50)
+    
+    # For each GMT offset, calculate the local time and countdown
+    for offset in gmt_offsets:
+        # Define the time zone using the GMT offset
+        tz = pytz.FixedOffset(offset * 60)  # Offset is in minutes
+        
+        # Local time at this offset
+        local_time = current_utc_time.astimezone(tz)
+        
+        # Local New Year moment
+        local_new_year = new_year.astimezone(tz)
+        
+        # Calculate the time difference
+        time_diff = local_new_year - local_time
+        days_left = time_diff.days
+        seconds_left = time_diff.seconds
+        hours_left = seconds_left // 3600
+        minutes_left = (seconds_left % 3600) // 60
+        seconds_left = seconds_left % 60
+        
+        # Display the countdown for the current time zone
+        print(f"GMT{offset:+03d} ({tz}):")
+        print(f"  Time Left: {days_left} days, {hours_left:02}:{minutes_left:02}:{seconds_left:02}\n")
+
+if __name__ == "__main__":
+    countdown_to_new_year()
