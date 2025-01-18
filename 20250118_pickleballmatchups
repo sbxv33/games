@@ -1,0 +1,48 @@
+import random
+
+# List of players (1 to 30)
+players = list(range(1, 31))
+
+# Function to generate matchups for a round
+def generate_matchups(players):
+    # Shuffle the player list to randomize the matchups
+    random.shuffle(players)
+
+    # Create pairs for doubles
+    matchups = []
+    for i in range(0, len(players), 4):
+        # Ensure each matchup has two teams of 2 players
+        team1 = players[i:i+2]
+        team2 = players[i+2:i+4]
+        matchups.append((team1, team2))
+
+    return matchups
+
+# Function to generate matchups for multiple rounds
+def generate_multiple_rounds(players, num_rounds):
+    rounds = []
+    
+    for _ in range(num_rounds):
+        round_matchups = generate_matchups(players)
+        rounds.append(round_matchups)
+    
+    return rounds
+
+# Function to print matchups in a readable format
+def print_matchups(rounds):
+    round_num = 1
+    for round_matchups in rounds:
+        print(f"Round {round_num}:")
+        for team1, team2 in round_matchups:
+            print(f"  Team 1: {team1} vs Team 2: {team2}")
+        round_num += 1
+        print("")
+
+# Number of rounds you want to generate
+num_rounds = 5  # Change this to the number of rounds you'd like
+
+# Generate matchups for multiple rounds
+rounds = generate_multiple_rounds(players, num_rounds)
+
+# Print out the generated matchups
+print_matchups(rounds)
