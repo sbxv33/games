@@ -1,0 +1,25 @@
+import random
+import datetime
+
+# List of motivational quotes
+quotes = [
+    "The only way to do great work is to love what you do. – Steve Jobs",
+    "Believe you can and you're halfway there. – Theodore Roosevelt",
+    "You are never too old to set another goal or to dream a new dream. – C.S. Lewis",
+    "Success is not the key to happiness. Happiness is the key to success. – Albert Schweitzer",
+    "The harder you work for something, the greater you’ll feel when you achieve it. – Unknown",
+    "It does not matter how slowly you go as long as you do not stop. – Confucius",
+    "Don’t watch the clock; do what it does. Keep going. – Sam Levenson",
+    "Act as if what you do makes a difference. It does. – William James",
+    "Success usually comes to those who are too busy to be looking for it. – Henry David Thoreau",
+    "The future belongs to those who believe in the beauty of their dreams. – Eleanor Roosevelt"
+]
+
+# Get the current day of the year (for consistent quotes every day)
+day_of_year = datetime.datetime.now().timetuple().tm_yday
+
+# Use the day of the year to pick a quote from the list
+quote_of_the_day = quotes[day_of_year % len(quotes)]
+
+# Display the quote
+print(f"Quote of the Day: {quote_of_the_day}")
