@@ -1,0 +1,63 @@
+import datetime
+
+def display_schedule(schedule):
+    """Displays the schedule in a formatted way."""
+    if not schedule:
+        print("No tasks or events scheduled for today.")
+        return
+
+    print("Today's Schedule:")
+    for time, task in sorted(schedule.items()):
+        print(f"{time}: {task}")
+
+def add_task(schedule, time, task):
+    """Adds a task to the schedule."""
+    if time in schedule:
+        print(f"Warning: Task already exists at {time}. Overwriting.")
+    schedule[time] = task
+    print(f"Task '{task}' added at {time}.")
+
+def remove_task(schedule, time):
+    """Removes a task from the schedule."""
+    if time in schedule:
+        removed_task = schedule.pop(time)
+        print(f"Task '{removed_task}' removed from {time}.")
+    else:
+        print(f"No task found at {time}.")
+
+def get_current_time_str():
+    """Gets the current time as a string (HH:MM)."""
+    now = datetime.datetime.now()
+    return now.strftime("%H:%M")
+
+def main():
+    """Main function to manage the schedule."""
+    today_schedule = {} # Dictionary to store tasks and events
+
+    while True:
+        print("\nOptions:")
+        print("1. Add Task")
+        print("2. Remove Task")
+        print("3. View Schedule")
+        print("4. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            time = input("Enter time (HH:MM): ")
+            task = input("Enter task/event: ")
+            add_task(today_schedule, time, task)
+        elif choice == "2":
+            time = input("Enter time (HH:MM) to remove: ")
+            remove_task(today_schedule, time)
+        elif choice == "3":
+            display_schedule(today_schedule)
+        elif choice == "4":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
