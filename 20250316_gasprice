@@ -1,0 +1,24 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load gas price data (Assumes a CSV file with 'Date' and 'Price' columns)
+file_path = "gas_prices.csv"  # Change this to your actual file path
+df = pd.read_csv(file_path, parse_dates=["Date"])
+
+# Sort data by date
+df = df.sort_values("Date")
+
+# Calculate price change
+df["Price Change"] = df["Price"].diff()
+
+# Plot gas prices
+plt.figure(figsize=(10, 5))
+plt.plot(df["Date"], df["Price"], marker="o", linestyle="-", label="Gas Price")
+plt.xlabel("Date")
+plt.ylabel("Price (per liter/gallon)")
+plt.title("Gas Price Changes Over Time")
+plt.legend()
+plt.grid()
+
+# Show plot
+plt.show()
