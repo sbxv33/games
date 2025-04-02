@@ -1,0 +1,30 @@
+import random
+import datetime
+
+# List of pickleball drills
+drills = [
+    "Dinking at the net",
+    "Third shot drop practice",
+    "Cross-court dinking",
+    "Volley-to-volley rally",
+    "Baseline to kitchen footwork",
+    "Serve and return accuracy",
+    "Forehand/backhand drive shots",
+    "Lob and overhead smashes",
+    "Transition zone control",
+    "Speed-up and reaction drills"
+]
+
+def get_daily_drills(num_drills=3):
+    """Selects a random set of drills for the day."""
+    return random.sample(drills, num_drills)
+
+def main():
+    today = datetime.date.today()
+    print(f"Pickleball Drills for {today}:")
+    daily_drills = get_daily_drills()
+    for i, drill in enumerate(daily_drills, 1):
+        print(f"{i}. {drill}")
+
+if __name__ == "__main__":
+    main()
