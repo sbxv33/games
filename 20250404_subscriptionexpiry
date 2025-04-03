@@ -1,0 +1,28 @@
+import datetime
+
+# Example list of subscriptions with expiry dates
+subscriptions = [
+    {"name": "Netflix", "expiry_date": "2025-04-10"},
+    {"name": "Spotify", "expiry_date": "2025-04-15"},
+    {"name": "Amazon Prime", "expiry_date": "2025-04-25"},
+    {"name": "Hulu", "expiry_date": "2025-05-01"}
+]
+
+# Function to check for expired or expiring subscriptions
+def check_subscription_expiry(subscriptions):
+    today = datetime.date.today()
+    warning_period = datetime.timedelta(days=7)  # 7 days before expiry
+    
+    for subscription in subscriptions:
+        expiry_date = datetime.datetime.strptime(subscription["expiry_date"], "%Y-%m-%d").date()
+        days_left = (expiry_date - today).days
+        
+        if days_left < 0:
+            print(f"{subscription['name']} has expired!")
+        elif days_left <= 7:
+            print(f"Warning: {subscription['name']} will expire in {days_left} days on {expiry_date}.")
+        else:
+            print(f"{subscription['name']} is active. Expiry on {expiry_date}. {days_left} days left.")
+
+# Run the expiry check
+check_subscription_expiry(subscriptions)
