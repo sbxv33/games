@@ -1,0 +1,61 @@
+import random
+
+# Define the teams and their seeds
+east_playoff_teams = [
+    ("Cavaliers", 1),
+    ("Celtics", 2),
+    ("Knicks", 3),
+    ("Pacers", 4),
+    ("Bucks", 5),
+    ("Pistons", 6),
+    ("Magic", 7),
+    ("Hawks", 8)
+]
+
+west_playoff_teams = [
+    ("Thunder", 1),
+    ("Rockets", 2),
+    ("Lakers", 3),
+    ("Nuggets", 4),
+    ("Clippers", 5),
+    ("Timberwolves", 6),
+    ("Warriors", 7),
+    ("Grizzlies", 8)
+]
+
+def simulate_game(team1, team2):
+    # Simple simulation: higher seed has a higher chance to win
+    seed_diff = team2[1] - team1[1]
+    win_chance = 0.5 + (seed_diff * 0.05)
+    return team1 if random.random() < win_chance else team2
+
+def simulate_series(team1, team2):
+    wins = {team1[0]: 0, team2[0]: 0}
+    while wins[team1[0]] < 4 and wins[team2[0]] < 4:
+        winner = simulate_game(team1, team2)
+        wins[winner[0]] += 1
+    return team1 if wins[team1[0]] == 4 else team2
+
+def simulate_round(teams):
+    next_round = []
+    for i in range(0, len(teams), 2):
+        winner = simulate_series(teams[i], teams[i+1])
+        next_round.append(winner)
+    return next_round
+
+def simulate_playoffs(east_teams, west_teams):
+    # Simulate Eastern Conference
+    east_round1 = simulate_round(east_teams)
+    east_round2 = simulate_round(east_round1)
+    east_champion = simulate_series(east_round2[0], east_round2[1])
+
+    # Simulate Western Conference
+    west_round1 = simulate_round(west_teams)
+    west_round2 = simulate_round(west_round1)
+    west_champion = simulate_series(west_round2[0], west_round2[1])
+
+    # Simulate Finals
+    champion = simulate_series(east_champion, west_champion)
+    print(f"The simulated 2025 NBA Champion is: {champion[0]}")
+
+simulate_playoffs(east_playoff_teams, west_playoff_teams)
