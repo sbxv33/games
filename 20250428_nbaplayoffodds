@@ -1,0 +1,31 @@
+import random
+
+def simulate_series(prob_team1_wins_game: float, num_simulations: int = 10000):
+    team1_wins_series = 0
+
+    for _ in range(num_simulations):
+        team1_wins = 0
+        team2_wins = 0
+
+        # Simulate until one team wins 4 games
+        while team1_wins < 4 and team2_wins < 4:
+            if random.random() < prob_team1_wins_game:
+                team1_wins += 1
+            else:
+                team2_wins += 1
+
+        if team1_wins == 4:
+            team1_wins_series += 1
+
+    team1_odds = team1_wins_series / num_simulations
+    team2_odds = 1 - team1_odds
+
+    return round(team1_odds, 4), round(team2_odds, 4)
+
+# Example usage:
+# Suppose Team A has a 60% chance of winning any individual game vs Team B
+team1_game_win_prob = 0.60
+team1_series_odds, team2_series_odds = simulate_series(team1_game_win_prob)
+
+print(f"Team 1 Series Win Odds: {team1_series_odds * 100:.2f}%")
+print(f"Team 2 Series Win Odds: {team2_series_odds * 100:.2f}%")
